@@ -39,6 +39,10 @@ vim.keymap.set("n", "<leader>sr", spring_run, { desc = "[S]pring [R]un" })
 vim.keymap.set("n", "<leader>u", "<cmd>UndotreeToggle<CR>", { desc = "Toggle [U]ndotree" })
 vim.keymap.set("n", "<leader>fx", "<cmd>!chmod +x %<CR>", { silent = true, desc = "Make current file executable" })
 
+-- Git (vim-fugitive, Primeagen-style)
+vim.keymap.set("n", "<leader>gs", "<cmd>Git<CR>", { desc = "[G]it [S]tatus" })
+vim.keymap.set("n", "<leader>gd", "<cmd>Gvdiffsplit<CR>", { desc = "[G]it [D]iff vertical" })
+
 -- Common development keymaps
 
 -- Save and quit

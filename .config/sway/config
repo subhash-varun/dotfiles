@@ -1,0 +1,171 @@
+### Primeagen-style Sway baseline
+
+set $mod Mod4
+set $terminal kitty
+set $menu wofi --show drun
+set $scripts $HOME/.config/sway/scripts
+
+font pango:JetBrainsMono Nerd Font 10
+
+floating_modifier $mod normal
+focus_follows_mouse no
+mouse_warping output
+
+default_border pixel 2
+default_floating_border pixel 2
+gaps inner 10
+gaps outer 4
+smart_borders on
+smart_gaps off
+
+# Rose Pine Moon palette
+client.focused          #c4a7e7 #232136 #e0def4 #c4a7e7 #c4a7e7
+client.focused_inactive #6e6a86 #2a273f #908caa #6e6a86 #6e6a86
+client.unfocused        #393552 #232136 #6e6a86 #393552 #393552
+client.urgent           #eb6f92 #232136 #e0def4 #eb6f92 #eb6f92
+
+# Background is restored by scripts/set-wallpaper.sh on startup.
+
+input type:keyboard {
+	xkb_layout us
+	repeat_delay 250
+	repeat_rate 35
+}
+
+input type:touchpad {
+	tap enabled
+	natural_scroll enabled
+	dwt enabled
+}
+
+# Programs
+bindsym $mod+Return exec $terminal
+bindsym $mod+d exec $menu
+bindsym $mod+b exec firefox
+bindsym $mod+Shift+g exec google-chrome-stable
+bindsym $mod+q kill
+bindsym Print exec $scripts/screenshot.sh full
+bindsym Shift+Print exec $scripts/screenshot.sh area
+bindsym $mod+Print exec $scripts/screenshot.sh area
+bindsym $mod+Shift+y exec sh $scripts/clipboard-menu.sh
+bindsym $mod+Shift+w exec $scripts/pick-wallpaper.sh
+bindsym $mod+Shift+p exec $scripts/power-menu.sh
+bindsym $mod+Escape exec ~/.config/swaylock/lock.sh
+
+# Layout controls
+bindsym $mod+v splitv
+bindsym $mod+Shift+v splith
+bindsym $mod+f fullscreen toggle
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+bindsym $mod+a focus parent
+bindsym $mod+s layout stacking
+bindsym $mod+w layout tabbed
+bindsym $mod+e layout toggle split
+
+# Vim-style focus
+bindsym $mod+h focus left
+bindsym $mod+j focus down
+bindsym $mod+k focus up
+bindsym $mod+l focus right
+
+# Vim-style move
+bindsym $mod+Shift+h move left
+bindsym $mod+Shift+j move down
+bindsym $mod+Shift+k move up
+bindsym $mod+Shift+l move right
+
+# Scratchpad
+bindsym $mod+Shift+minus move scratchpad
+bindsym $mod+minus scratchpad show, floating disable
+
+# Resize mode
+mode "resize" {
+	bindsym h resize shrink width 10 px
+	bindsym j resize grow height 10 px
+	bindsym k resize shrink height 10 px
+	bindsym l resize grow width 10 px
+
+	bindsym Left resize shrink width 10 px
+	bindsym Down resize grow height 10 px
+	bindsym Up resize shrink height 10 px
+	bindsym Right resize grow width 10 px
+
+	bindsym Return mode "default"
+	bindsym Escape mode "default"
+	bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# Workspaces
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+bindsym $mod+1 workspace number $ws1
+bindsym $mod+2 workspace number $ws2
+bindsym $mod+3 workspace number $ws3
+bindsym $mod+4 workspace number $ws4
+bindsym $mod+5 workspace number $ws5
+bindsym $mod+6 workspace number $ws6
+bindsym $mod+7 workspace number $ws7
+bindsym $mod+8 workspace number $ws8
+bindsym $mod+9 workspace number $ws9
+bindsym $mod+0 workspace number $ws10
+
+bindsym $mod+Shift+1 move container to workspace number $ws1
+bindsym $mod+Shift+2 move container to workspace number $ws2
+bindsym $mod+Shift+3 move container to workspace number $ws3
+bindsym $mod+Shift+4 move container to workspace number $ws4
+bindsym $mod+Shift+5 move container to workspace number $ws5
+bindsym $mod+Shift+6 move container to workspace number $ws6
+bindsym $mod+Shift+7 move container to workspace number $ws7
+bindsym $mod+Shift+8 move container to workspace number $ws8
+bindsym $mod+Shift+9 move container to workspace number $ws9
+bindsym $mod+Shift+0 move container to workspace number $ws10
+
+# Session management
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+r restart
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Exit Sway?' -B 'Exit' 'swaymsg exit'
+
+# Media keys (works with PipeWire wpctl when available)
+bindsym XF86AudioRaiseVolume exec sh -c 'command -v wpctl >/dev/null && wpctl set-volume -l 1.0 @DEFAULT_AUDIO_SINK@ 5%+ || pactl set-sink-volume @DEFAULT_SINK@ +5%'
+
+bindsym XF86AudioLowerVolume exec sh -c 'command -v wpctl >/dev/null && wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%- || pactl set-sink-volume @DEFAULT_SINK@ -5%'
+
+bindsym XF86AudioMute exec sh -c 'command -v wpctl >/dev/null && wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle || pactl set-sink-mute @DEFAULT_SINK@ toggle'
+
+bindsym XF86AudioMicMute exec sh -c 'command -v wpctl >/dev/null && wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle || pactl set-source-mute @DEFAULT_SOURCE@ toggle'
+
+bindsym XF86MonBrightnessUp exec brightnessctl set +5%
+bindsym XF86MonBrightnessDown exec brightnessctl set 5%-
+bindsym $mod+Shift+b exec $scripts/brightness-menu.sh
+
+# App rules
+for_window [app_id="floating_shell"] floating enable
+for_window [window_role="pop-up"] floating enable
+for_window [window_role="bubble"] floating enable
+for_window [window_role="dialog"] floating enable
+for_window [window_type="dialog"] floating enable
+for_window [window_type="utility"] floating enable
+for_window [window_type="toolbar"] floating enable
+for_window [window_type="splash"] floating enable
+
+# Startup services
+exec_always --no-startup-id $scripts/set-wallpaper.sh
+exec_always --no-startup-id sh -c 'pkill -x waybar; command -v waybar >/dev/null && waybar'
+exec_always --no-startup-id sh -c 'pkill -x mako; command -v mako >/dev/null && mako'
+exec_always --no-startup-id sh -c 'pkill -x nm-applet; command -v nm-applet >/dev/null && nm-applet --indicator'
+exec_always --no-startup-id sh -c 'pkill -x blueman-applet; command -v blueman-applet >/dev/null && blueman-applet'
+exec_always --no-startup-id sh $scripts/start-cliphist.sh
+exec_always --no-startup-id sh -c 'pkill -x swayidle; command -v swayidle >/dev/null && swayidle -w timeout 300 ~/.config/swaylock/lock.sh before-sleep ~/.config/swaylock/lock.sh'
+
+include /etc/sway/config.d/*

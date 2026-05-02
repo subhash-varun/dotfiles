@@ -1,0 +1,25 @@
+@define-color base #232136;
+@define-color surface #2a273f;
+@define-color overlay #393552;
+@define-color muted #6e6a86;
+@define-color subtle #908caa;
+@define-color text #e0def4;
+@define-color love #eb6f92;
+@define-color gold #f6c177;
+@define-color rose #ea9a97;
+@define-color pine #3e8fb0;
+@define-color foam #9ccfd8;
+@define-color iris #c4a7e7;
+@define-color highlightLow #2a283e;
+@define-color highlightMed #44415a;
+@define-color highlightHigh #56526e;
+
+@define-color panel #1a1530;
+@define-color panelBorder #5a4b85;
+@define-color panelText #efe9ff;
+@define-color panelTextDim #b7abd7;
+@define-color focusText #ffffff;
+@define-color clockBg #2b2450;
+@define-color clockBorder #7d6cc7;
+@define-color clockText #f2edff;
+@define-color power #e06c75;

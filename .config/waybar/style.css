@@ -1,0 +1,98 @@
+@import url("colors.css");
+
+/* Global reset (remove forced rounded look) */
+
+* {
+  border: none;
+  font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+  font-size: 12px;
+  font-weight: 700;
+  min-height: 0;
+  }
+
+window#waybar {
+background: transparent;
+color: @text;
+}
+
+/* ================= WORKSPACES (PRIMEAGEN STYLE) ================= */
+#workspaces {
+  margin-left: 6px;
+  padding: 2px 6px;
+  background: alpha(@panel, 0.60);
+  border: 1px solid alpha(@panelBorder, 0.3);
+  border-radius: 6px;
+}
+
+#workspaces button {
+  all: unset;
+  color: @subtle;
+  margin: 0 5px;
+}
+
+#workspaces button.focused {
+  color: @foam;
+}
+
+#workspaces button:hover {
+  color: @panelText;
+}
+
+#workspaces button.urgent {
+  color: @love;
+}
+
+/* ================= OTHER MODULES ================= */
+
+#clock,
+#pulseaudio,
+#battery,
+#tray,
+#backlight {
+margin: 3px 0;
+padding: 0 12px;
+background: alpha(@panel, 0.70);
+border: 1px solid @panelBorder;
+color: @panelText;
+border-radius: 9999px;
+}
+
+/* Clock (center highlight) */
+#clock {
+background: alpha(@clockBg, 0.78);
+border-color: @clockBorder;
+color: @clockText;
+padding-left: 16px;
+padding-right: 16px;
+}
+
+/* Alerts */
+#battery.warning,
+#battery.critical,
+#pulseaudio.muted {
+color: @love;
+}
+
+/* Right-side grouping (pill chain) */
+#battery,
+#backlight,
+#pulseaudio,
+#tray {
+border-radius: 0;
+}
+
+#battery {
+border-radius: 9999px 0 0 9999px;
+}
+
+#backlight,
+#pulseaudio,
+#tray {
+border-left-width: 0;
+}
+
+#tray {
+border-radius: 0 9999px 9999px 0;
+padding-left: 10px;
+padding-right: 10px;
+}
